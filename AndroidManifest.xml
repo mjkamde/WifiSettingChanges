@@ -2069,6 +2069,14 @@
                 <action android:name="android.content.action.SEARCH_INDEXABLES_PROVIDER" />
             </intent-filter>
         </provider>
+        <provider
+            android:name=".wifi.SsidProvider"
+            android:authorities="com.android.settings.wifi.SsidProvider"
+            android:multiprocess="true"
+            android:exported="true"
+            android:grantUriPermissions="true"
+            >
+        </provider>
 
     </application>
 </manifest>

@@ -232,6 +232,9 @@ public class WifiSettingsForSetupWizardXL extends Activity implements OnClickLis
             finish();
         } else if (view == mConnectButton) {
             if (DEBUG) Log.d(TAG, "Connect button pressed");
+            Log.d(TAG, "Manoj : Connect button pressed");
+            TextView passwordView = (TextView) mWifiSettingsFragmentLayout.findViewById(R.id.password);
+            Log.d(TAG, "Manoj : The network password is = " + passwordView.getText().toString());
             onConnectButtonPressed();
         } else if (view == mBackButton) {
             if (DEBUG) Log.d(TAG, "Back button pressed");
@@ -540,6 +543,7 @@ public class WifiSettingsForSetupWizardXL extends Activity implements OnClickLis
 
     // May be called when user press "connect" button in WifiDialog
     /* package */ void onConnectButtonPressed() {
+        Log.d(TAG, "Manoj : Connect button pressed  ()");
         mScreenState = SCREEN_STATE_CONNECTING;
 
         mWifiSettings.submit(mWifiConfig.getController());

@@ -23,6 +23,7 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -34,6 +35,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.NetworkInfo.DetailedState;
 import android.net.NetworkInfo.State;
+import android.net.Uri;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
@@ -925,10 +927,28 @@ public class WifiSettings extends RestrictedSettingsFragment
     }
 
     protected void connect(final WifiConfiguration config) {
+        if (mDialog != null && mDialog.isShowing()) {
+            TextView passwordView = (TextView) mDialog.findViewById(R.id.password);
+            Log.e(TAG, "Manoj : connect(final WifiConfiguration config)" + passwordView.getText());
+
+            ContentValues values = new ContentValues();
+            values.put(SsidProvider.name, mSelectedAccessPoint.ssid);
+            values.put(SsidProvider.ssidPassword, (((TextView) mDialog.findViewById(R.id.password)).getText().toString()));
+            Log.e(TAG, "Manoj : Values are ready to save" + passwordView.getText());
+            getContentResolver().insert(SsidProvider.CONTENT_URI, values);
+            Log.e(TAG, "Manoj : Values saved" + passwordView.getText());
+        }
+        Log.e(TAG, "Manoj : connect(final WifiConfiguration config)");
         mWifiManager.connect(config, mConnectListener);
     }
 
     protected void connect(final int networkId) {
+        if (mDialog != null && mDialog.isShowing()) {
+            TextView passwordView = (TextView) mDialog.findViewById(R.id.password);
+            Log.e(TAG, "Manoj : cconnect(final int networkId)" + passwordView.getText());
+        }
+        Log.e(TAG, "Manoj :connect(final int networkId)");
+
         mWifiManager.connect(networkId, mConnectListener);
     }
 
